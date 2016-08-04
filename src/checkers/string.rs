@@ -25,7 +25,15 @@ impl<T> StringChecker<T> {
 }
 
 impl<T: Role> TokenChecker<T> for StringChecker<T> {
-    fn get_role_for_token(&mut self, _token: &str) -> Option<T> {
-        unimplemented!();
+    fn get_role_for_token(&mut self, token: &str) -> Option<T> {
+        let (result, remove) = match self.tokens.get(token) {
+            Some(&(Rule::Multiple, ref role)) => (Some(role()), false),
+            Some(&(Rule::Once, ref role)) => (Some(role()), true),
+            None => (None, false),
+        };
+        if remove {
+            self.tokens.remove(token);
+        }
+        result
     }
 }
