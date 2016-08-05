@@ -4,4 +4,9 @@ version = "0.0.1"
 authors = ["Denis Kolodin <deniskolodin@gmail.com>"]
 description = "Library with generic authorization routines."
 
+[features]
+default = ["hashing"]
+hashing = ["rust-crypto"]
+
 [dependencies]
+rust-crypto = { version = "0.2.36", optional = true }

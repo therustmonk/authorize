@@ -1,6 +1,10 @@
 //! Generic authorization routines.
+#[cfg(feature = "hashing")]
+extern crate crypto;
 
 pub mod checkers;
+#[cfg(feature = "hashing")]
+pub mod cipher;
 
 /// Marker trait of role.
 /// Implement it for your struct or enum to represent roles in your services.
