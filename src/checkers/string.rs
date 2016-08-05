@@ -26,10 +26,11 @@ impl<T: Role> StringChecker<T> {
         let rule = Rule::Once(Some(role));
         self.add_rule(token, rule);
     }
+}
 
-    pub fn add_multiple<F>(&mut self, token: &str, generator: F)
-        where F: Fn() -> T + Send + 'static {
-        let generator = move || Some(generator());
+impl<T: Role + Clone + Send + 'static> StringChecker<T> {
+    pub fn add_multiple(&mut self, token: &str, role: T) {
+        let generator = move || Some(role.clone());
         let rule = Rule::Multiple(Box::new(generator));
         self.add_rule(token, rule);
     }
