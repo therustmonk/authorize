@@ -1,8 +1,10 @@
 [package]
 name = "authorize"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["Denis Kolodin <deniskolodin@gmail.com>"]
 description = "Library with generic authorization routines."
+repository = "https://github.com/DenisKolodin/authorize"
+license = "MIT/Apache-2.0"
 
 [features]
 default = ["hashing"]
