@@ -1,6 +1,7 @@
 [package]
 name = "authorize"
 version = "0.1.0"
+readme = "README.md"
 authors = ["Denis Kolodin <deniskolodin@gmail.com>"]
 description = "Library with generic authorization routines."
 repository = "https://github.com/DenisKolodin/authorize"
