@@ -1,4 +1,4 @@
-use std::error;
+use std::io::Error;
 use std::collections::HashMap;
 use Role;
 use super::*;
@@ -37,8 +37,8 @@ impl<T: Role + Clone + Send + 'static> StringChecker<T> {
     }
 }
 
-impl<T: Role, E: error::Error> TokenChecker<T, E> for StringChecker<T> {
-    fn get_role_for_token(&mut self, token: &str) -> Result<T, E> {
+impl<T: Role> TokenChecker<T, Error> for StringChecker<T> {
+    fn get_role_for_token(&mut self, token: &str) -> Result<T, Error> {
         let (result, remove) = match self.tokens.get_mut(token) {
             Some(&mut Rule::Multiple(ref generator)) => (generator(), false),
             Some(&mut Rule::Once(ref mut role)) => (role.take(), true),
