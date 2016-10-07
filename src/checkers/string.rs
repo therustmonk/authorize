@@ -1,6 +1,7 @@
+use std::error;
 use std::collections::HashMap;
 use Role;
-use super::TokenChecker;
+use super::*;
 
 enum Rule<T: Role> {
     Once(Option<T>),
@@ -36,8 +37,8 @@ impl<T: Role + Clone + Send + 'static> StringChecker<T> {
     }
 }
 
-impl<T: Role> TokenChecker<T> for StringChecker<T> {
-    fn get_role_for_token(&mut self, token: &str) -> Option<T> {
+impl<T: Role, E: error::Error> TokenChecker<T, E> for StringChecker<T> {
+    fn get_role_for_token(&mut self, token: &str) -> Result<T, E> {
         let (result, remove) = match self.tokens.get_mut(token) {
             Some(&mut Rule::Multiple(ref generator)) => (generator(), false),
             Some(&mut Rule::Once(ref mut role)) => (role.take(), true),
@@ -46,6 +47,6 @@ impl<T: Role> TokenChecker<T> for StringChecker<T> {
         if remove {
             self.tokens.remove(token);
         }
-        result
+        Ok(result)
     }
 }
