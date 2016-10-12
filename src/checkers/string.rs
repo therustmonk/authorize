@@ -1,4 +1,5 @@
-use std::io::Error;
+use std::error;
+use std::fmt;
 use std::collections::HashMap;
 use Role;
 use super::*;
@@ -6,6 +7,25 @@ use super::*;
 enum Rule<T: Role> {
     Once(Option<T>),
     Multiple(Box<Fn() -> Option<T> + Send>),
+}
+
+#[derive(Debug)]
+pub enum Error { }
+
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TockenChecker Error")
+    }
+}
+
+impl error::Error for Error {
+    fn description(&self) -> &str {
+        "error of token checker"
+    }
+
+    fn cause(&self) -> Option<&error::Error> {
+        None
+    }
 }
 
 pub struct StringChecker<T: Role> {
