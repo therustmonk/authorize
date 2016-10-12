@@ -7,9 +7,4 @@ description = "Library with generic authorization routines."
 repository = "https://github.com/DenisKolodin/authorize"
 license = "MIT/Apache-2.0"
 
-[features]
-default = ["hashing"]
-hashing = ["rust-crypto"]
-
 [dependencies]
-rust-crypto = { version = "0.2.36", optional = true }
