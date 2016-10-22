@@ -1,7 +1,5 @@
 //! Generic authorization routines.
 
-pub mod checkers;
-
 /// Marker trait of role.
 /// Implement it for your struct or enum to represent roles in your services.
 pub trait Role { }
